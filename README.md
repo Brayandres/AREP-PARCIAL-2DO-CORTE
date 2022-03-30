@@ -17,34 +17,34 @@ Se cuenta con 3 instancias de EC2, la principal el la llamada "proxy".
 Al acceder al proxy, tenemos 2 servicios:
 - Resultados a través de una página HTML
   
-  ![Page]()
+  ![Page](https://github.com/Brayandres/AREP-PARCIAL-2DO-CORTE/blob/main/Evidence/Working/Pagex.jpg)
 
-  ![PageSqrt]()  
+  ![PageSqrt](https://github.com/Brayandres/AREP-PARCIAL-2DO-CORTE/blob/main/Evidence/Working/PageSqrtx.jpg)  
 
 - Y los resultados de la operación a través de un archivo JSON.
   
-  ![JsonSqrt]()
+  ![JsonSqrt](https://github.com/Brayandres/AREP-PARCIAL-2DO-CORTE/blob/main/Evidence/Working/JsonSqrtx.jpg)
 
-  ![JsonExp]()
+  ![JsonExp](https://github.com/Brayandres/AREP-PARCIAL-2DO-CORTE/blob/main/Evidence/Working/JsonExpx.jpg)
 
 Finalmente, también podemos manejar tales operaciones a través de los servicios de "calculator1" y "calculator2", que corresponden a las 2 instancias restantes de  EC2.
 
 ## Cómo correr en EC2
 Lo primero es crear 3 instancias de EC2 generando llaves privadas propias,
 
-|[KeyGeneration]()
+![KeyGeneration](https://github.com/Brayandres/AREP-PARCIAL-2DO-CORTE/blob/main/Evidence/KeyGenerationx.jpg)
 
 y esperamos a que se inicien correctamente.
 Una ves tengamos listas nuestras 3 instancias de EC2, procederemos a nombrarlas con el servicio que van a tener asociado.
 
-![Instances]()
+![Instances](https://github.com/Brayandres/AREP-PARCIAL-2DO-CORTE/blob/main/Evidence/Instancesx.jpg)
 
 Ahora, procedemos a instalar Docker en las 3 máquinas.
 para ello, accedemos a cada una de las máquinas a través de SSH usando las claves privadas que generamos en la creación de las instancias.
 
-![Connect]()
+![Connect](https://github.com/Brayandres/AREP-PARCIAL-2DO-CORTE/blob/main/Evidence/Connectx.jpg)
 
-![SSHconnection]()
+![SSHconnection](https://github.com/Brayandres/AREP-PARCIAL-2DO-CORTE/blob/main/Evidence/SSHConnectionx.jpg)
 
 para instalar Docker, utilizamos el siguiente comando:
 
@@ -56,29 +56,29 @@ Una vez que docker se ha instalado, procedemos a iniciar el Daemon de Docker
 
 Para poder usar nuestros programas previamente creados, descargaremos y usremos las imágenes que los contienen desde un repositorio público de DockerHub.
 
-![Dockerhub]()
+![Dockerhub](https://github.com/Brayandres/AREP-PARCIAL-2DO-CORTE/blob/main/Evidence/Docker/Captura%20Docker%20Hubx.jpg)
 
 Así que levantamos cada uno de los servicios con la imagen correspondiente en cada instancia.
 
-![Run]()
+![Run](https://github.com/Brayandres/AREP-PARCIAL-2DO-CORTE/blob/main/Evidence/Docker/Runx.jpg)
 
-![RunCalculator1]()
+![RunCalculator1](https://github.com/Brayandres/AREP-PARCIAL-2DO-CORTE/blob/main/Evidence/Docker/RunCalc1x.jpg)
 
-![RunCalculator2]()
+![RunCalculator2](https://github.com/Brayandres/AREP-PARCIAL-2DO-CORTE/blob/main/Evidence/Docker/RunCalc2x.jpg)
 
 Ahora va a ser necesario abrir los puertos correspondientes para poder acceder a los servicios en las instancias a través de sus direcciones públicas.
 Así que en el apartado de "Seguridad" de cada instancia,
 
-![SecurityGroup]()
+![SecurityGroup](https://github.com/Brayandres/AREP-PARCIAL-2DO-CORTE/blob/main/Evidence/SecurityGroupx.jpg)
 
 seleccionamos el grupo de seguridad de esta y nos situamos en las reglas de entrada.
 Hacemos clic en editar reglas
 
-![EditRules]()
+![EditRules](https://github.com/Brayandres/AREP-PARCIAL-2DO-CORTE/blob/main/Evidence/EditRulesx.jpg)
 
 Agregamos una nueva regla con el puerto 4567 para TCP y libre para todos. Luego damos clic en "Guardar Reglas".
 
-![NewRule]()
+![NewRule](https://github.com/Brayandres/AREP-PARCIAL-2DO-CORTE/blob/main/Evidence/NewRulex.jpg)
 
 Para que el agloritmo de RoundRobin dentro del proxy pueda manejar correctamente las direcciones de las otras 2 instancias, será necesario crear 2 variables de entorno con las direcciones de las instancias.
 Entramos de nuevo a la máquina del proxy:
@@ -91,7 +91,7 @@ creammos el siguiente archivo con privilegios de root user,
 ```
 e introducimos el siguiente contenido en el archivo, que son las variables de entorno
 
-![EnvVars]()
+![EnvVars](https://github.com/Brayandres/AREP-PARCIAL-2DO-CORTE/blob/main/Evidence/EnvVarsx.jpg)
 
 Leugo reiniciamos la máquina desde el panel de AWS.
 Finalmente tendremos todo nuestro sistema funcionado correctamente.
