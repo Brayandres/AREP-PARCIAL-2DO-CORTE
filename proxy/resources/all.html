@@ -10,7 +10,7 @@
 	<script type="text/javascript">
 		var pageApi = (function() {
 
-			var _str = "";
+			var _num = "";
 
 			function _getTimeAndDate() {
 				let currentDate = "";
@@ -20,43 +20,81 @@
 				return currentDate;
 			}
 
-			function _isValidString() {
+			function _isValidNumber(service) {
 				let isValid = false;
-				let string = $("#inputString").val();
+				let string = $("#"+service+"Number").val();
 				if (!( string === "" || string == null )) {
 					isValid = true;
-					_str = string;
+					_num = string;
 				}
 				return isValid;
 			}
 
-			function _saveString() {
-				console.log("IN GET: "+_str);
-				var getPromise = $.get("/saveString/"+_str);
+			function _getSqrt() {
+				console.log("IN GET SQRT: "+_num);
+				var getPromise = $.get("/sqrt?value="+_num);
 				getPromise.then(
 					function(data) {
-						console.log("Done!");
-						console.log("  Data: "+JSON.stringify(data));
+						console.log("Done! (Sqrt)");
+						var obj = JSON.parse(JSON.stringify(data));
+						console.log("  Data: "+JSON.stringify(data)+"\n");
+						window.alert(
+							"Operation: "+obj.operation+"\n"+
+							"Input: "+obj.input+"\n"+
+							"Output: "+obj.output
+						);
 					},
 					function(data) {
-						console.log("Error!");
+						console.log("Error! (Sqrt)");
+						console.log("  Data: "+JSON.stringify(data)+"\n");
+					}
+				);
+			}
+
+			function _getExp() {
+				console.log("IN GET EXP: "+_num);
+				var getPromise = $.get("/exp?value="+_num);
+				getPromise.then(
+					function(data) {
+						console.log("Done! (Exp)");
+						var obj = JSON.parse(JSON.stringify(data));
+						console.log("  Data: "+JSON.stringify(data)+"\n");
+						window.alert(
+							"Operation: "+obj.operation+"\n"+
+							"Input: "+obj.input+"\n"+
+							"Output: "+obj.output
+						);
+					},
+					function(data) {
+						console.log("Error! (Exp)");
 						console.log("  Data: "+JSON.stringify(data));
 					}
 				);
 			}
 
-			function saveString() {
-				if (_isValidString()) {
+			function calculateSqrt() {
+				if (_isValidNumber("sqrt")) {
 					console.log("Send at: "+_getTimeAndDate());
-					_saveString();
+					_getSqrt();
 				}
 				else {
-					window.alert("The 'String' field cannot be empty");
+					window.alert("The 'Number' field cannot be empty");
+				}
+			}
+
+			function calculateExp() {
+				if (_isValidNumber("exp")) {
+					console.log("Send at: "+_getTimeAndDate());
+					_getExp();
+				}
+				else {
+					window.alert("The 'Number' field cannot be empty");
 				}
 			}
 
 			return {
-				saveString: saveString
+				calculateSqrt: calculateSqrt,
+				calculateExp: calculateExp
 			}
 		})();
 	</script>
@@ -141,14 +179,14 @@
 	<p class="titleText" style="font-size: 1.5rem;">
 		SQRT FUNCTION<br>
 		Type a real number:<br>
-		<input id="inputString" type="text" placeholder="Your Number"><br>
-		<button id="sendBtn" onclick="pageApi.saveString()">CALCULATE</button>
+		<input id="sqrtNumber" type="text" placeholder="Your Number"><br>
+		<button id="sendBtn" onclick="pageApi.calculateSqrt()">CALCULATE</button>
 	</p>
 	<p class="titleText" style="font-size: 1.5rem;">
 		EXP FUNCTION<br>
 		Type a real number:<br>
-		<input id="inputString" type="text" placeholder="Your Number"><br>
-		<button id="sendBtn" onclick="pageApi.saveString()">CALCULATE</button>
+		<input id="expNumber" type="text" placeholder="Your Number"><br>
+		<button id="sendBtn" onclick="pageApi.calculateExp()">CALCULATE</button>
 	</p>
 </body>
 

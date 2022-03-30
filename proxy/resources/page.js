@@ -26,11 +26,17 @@ var pageApi = (function() {
 		getPromise.then(
 			function(data) {
 				console.log("Done! (Sqrt)");
-				console.log("  Data: "+JSON.stringify(data));
+				var obj = JSON.parse(JSON.stringify(data));
+				console.log("  Data: "+JSON.stringify(data)+"\n");
+				window.alert(
+					"Operation: "+obj.operation+"\n"+
+					"Input: "+obj.input+"\n"+
+					"Output: "+obj.output
+				);
 			},
 			function(data) {
 				console.log("Error! (Sqrt)");
-				console.log("  Data: "+JSON.stringify(data));
+				console.log("  Data: "+JSON.stringify(data)+"\n");
 			}
 		);
 	}
@@ -41,7 +47,13 @@ var pageApi = (function() {
 		getPromise.then(
 			function(data) {
 				console.log("Done! (Exp)");
-				console.log("  Data: "+JSON.stringify(data));
+				var obj = JSON.parse(JSON.stringify(data));
+				console.log("  Data: "+JSON.stringify(data)+"\n");
+				window.alert(
+					"Operation: "+obj.operation+"\n"+
+					"Input: "+obj.input+"\n"+
+					"Output: "+obj.output
+				);
 			},
 			function(data) {
 				console.log("Error! (Exp)");
