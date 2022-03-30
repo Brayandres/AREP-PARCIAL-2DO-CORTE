@@ -1,4 +1,4 @@
-package edu.eci.arep.roundRobin.response;
+package edu.eci.arep.mathServices.response;
 
 public enum StatusResponse {
 	
